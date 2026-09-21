@@ -112,6 +112,15 @@ DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, videoSource)
     return _videoSourceFact;
 }
 
+DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, rtspUrlSecondary)
+{
+    if (!_rtspUrlSecondaryFact) {
+        _rtspUrlSecondaryFact = _createSettingsFact(QStringLiteral("rtspUrlSecondary"));
+        connect(_rtspUrlSecondaryFact, &Fact::valueChanged, this, &VideoSettings::_configChanged);
+    }
+    return _rtspUrlSecondaryFact;
+}
+
 DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, forceVideoDecoder)
 {
     if (!_forceVideoDecoderFact) {
@@ -170,8 +179,6 @@ DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, forceCpuVideoPath)
     return _forceCpuVideoPathFact;
 }
 
-// videoConversionElement / disablePixelAspectRatio are read by VideoBackend::createSink()
-// into a VideoSinkConfig and passed as construct-only bin properties — no env-var indirection.
 DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, videoConversionElement)
 {
     if (!_videoConversionElementFact) {
@@ -189,7 +196,6 @@ DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, disablePixelAspectRatio)
     }
     return _disablePixelAspectRatioFact;
 }
-
 
 DECLARE_SETTINGSFACT_NO_FUNC(VideoSettings, rtspTimeout)
 {
