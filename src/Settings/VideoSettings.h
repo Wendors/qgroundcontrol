@@ -17,6 +17,7 @@ public:
     DEFINE_SETTINGFACT(udpUrl)
     DEFINE_SETTINGFACT(tcpUrl)
     DEFINE_SETTINGFACT(rtspUrl)
+    DEFINE_SETTINGFACT(rtspUrlSecondary)
     DEFINE_SETTINGFACT(aspectRatio)
     DEFINE_SETTINGFACT(videoFit)
     DEFINE_SETTINGFACT(gridLines)
@@ -51,9 +52,6 @@ public:
     QString  mpegtsVideoSource      () { return videoSourceMPEGTS; }
     QString  disabledVideoSource    () { return videoDisabled; }
 
-    /// Remove hardware forced-decoder options absent from the running GStreamer registry, and
-    /// reset the active choice to Default if it was pruned. Call after the video backend has
-    /// initialized (the registry is empty until then).
     void pruneUnavailableDecoders();
 
     static constexpr const char* videoSourceNoVideo           = QT_TRANSLATE_NOOP("VideoSettings", "No Video Available");
@@ -81,5 +79,4 @@ private:
 
 private:
     bool _noVideo = false;
-
 };
