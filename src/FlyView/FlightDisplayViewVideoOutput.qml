@@ -4,14 +4,9 @@ import QtMultimedia
 import QGroundControl
 
 VideoOutput {
-    objectName: "videoContent"
+    property string streamName: "videoContent"
+    objectName: streamName
 
-    // Do NOT set `orientation` here — VideoOutput composes orientation on top of the
-    // QVideoFrame's own rotation()/mirrored() metadata that qgcqvideosink forwards from
-    // GstVideoOrientationMeta. Setting it would double-rotate any stream with orientation tags.
-
-    // videoFit enum: 0=Fit Width, 1=Fit Height, 2=Fill, 3=No Crop. The container
-    // handles fit-width/fit-height sizing; only Fill needs the cropping fillMode.
     fillMode: QGroundControl.settingsManager.videoSettings.videoFit.rawValue === 2
               ? VideoOutput.PreserveAspectCrop
               : VideoOutput.PreserveAspectFit
